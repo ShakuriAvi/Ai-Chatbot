@@ -1,45 +1,54 @@
 # Ai-Chatbot
-# Neural Search Service:
+# AIChatBot Service:
 
-1) Clone the Neural Search Service Project:
-* Clone the Neural Search Service project from its GitHub repository.
+1) Clone the AIChatBot Project:
+* Clone the AIChatBot project from its GitHub repository.
 
 2) Install Dependencies:
-* Execute pip install -r requirements.txt to install the necessary dependencies.
-* Execute python -m spacy download en_core_web_sm
+* Run pip install -r requirements.txt to install the required dependencies.
+
+3) Build and Start Docker Compose:
+* Execute docker-compose up --build -d to build and start the Docker containers.
+
+4) Setup MongoDB Database:
+* Manually create a new MongoDB database named "AIChatBot" and a schema named "users_conversations". (It's my first time with mongo).
+
+5) Configure AIChatBot:
+* Append the content of the config.py file you received via email to the AIChatBot project. This file likely contains configurations necessary for the * correct operation of the service.
+
+6) Run the AIChatBot Service:
+* Finally, launch service.py to activate the AIChatBot service, which will be accessible through port 8080.
+* (Make sure before you running this service that you set up the previous service),
+
+With these additional steps, your AIChatBot service should now be properly configured with the settings provided in the config.py file.
 
 
-3) Pull and Run Qdrant Docker Container:
-* Pull the Qdrant Docker image by running docker pull qdrant/qdrant. Then, initiate the container with docker run -p 6333:6333 qdrant/qdrant.
 
-4) Load Data into Qdrant:
-* Once the Qdrant container is running, execute load_data.py to load the data into the container.
-
-5) Run the Neural Search Service:
-* Launch service.py to start the Neural Search Service, which will be accessible through port 8000.
 
 # Project Details:
-Created a Simple Neural Search Service using the Qdrant open-source library and extended its functionality to include a feature that filters search results based on the city mentioned in the user's input text.
+* My architecture in the project:
+![image](https://github.com/ShakuriAvi/Ai-Chatbot/assets/65177459/a8a5615c-fbbe-4a91-b3b4-b6fa4d998616)
 
-Here's a summary of the setup:
 
-Neural Search Microservice (Task 1):
+I handling In Two cases:
+# Case 1: New User Query
 
-I deployed the Qdrant library as a neural search service.
-I added a new feature to the service that allows it to extract the city mentioned in the user's input text to filter search results accordingly.
-Calling the Neural Search Service from Another Microservice (Task 2):
+1) When a new user sends a query, I call the Neural Service to retrieve relevant information.
+2) Once I receive the response from the Neural Service, I use the ChatGPT API to formulate an answer to the user's query.
+3) After processing the user's query and formulating the response, I store the user's query, the ChatGPT response, and the Neural Service response in MongoDB for future reference.
 
-In your second microservice (Task 2), you make HTTP requests to the neural search service created in Task 1.
-I provide a CURL command as an example of how to call the neural search service, specifying the query text and parameters in the URL.
-curl --location 'http://localhost:8000/api/search?q=Are%20there%20startups%20about%20wine%3F'
-Given this setup, here are some additional considerations and steps you might need to take:
+# Case 2: Returning User Query
 
-Ensure that the Neural Search Microservice (Task 1) is running and accessible at http://localhost:8000.
-Verify that the extended functionality for filtering search results based on the city is working as expected.
-In your second microservice (Task 2), make sure to construct the appropriate HTTP requests to call the neural search service with the necessary query parameters, such as the user's input text.
-Handle the response from the neural search service appropriately in your second microservice, parsing the search results returned and taking further actions as needed.
-If you encounter any specific issues or need further assistance with implementing or testing the setup, feel free to provide more details, and I'd be happy to help!
+1) When a returning user asks a question, I check if the last response from the Neural Service contains an answer provided by ChatGPT.
+2) If there's a ChatGPT-generated answer in the last Neural Service response, I return that answer to the user.
+3) If there's no ChatGPT-generated answer in the last Neural Service response, I use ChatGPT to formulate a new question and repeat the process described in Case 1.
 
-![image](https://github.com/ShakuriAvi/Ai-Chatbot/assets/65177459/d52abea1-024d-410d-bc9b-5d5ebbf0ebed)
+About the handling request, I'm sure there are many use cases to handle them, I handling just in the case the Neural service doesnt have answer.
+I used in strategy design patterns to init the Chatgpt API and the Neural API.
 
-  
+If you have any question please let me know.
+
+
+![image](https://github.com/ShakuriAvi/Ai-Chatbot/assets/65177459/065e09b0-b76e-47cc-8c4f-9b7527e96bd7)
+![image](https://github.com/ShakuriAvi/Ai-Chatbot/assets/65177459/abaccf39-3976-4fc7-9b43-bd575203c766)
+
