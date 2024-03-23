@@ -43,6 +43,7 @@ I handling In Two cases:
 2) If there's a ChatGPT-generated answer in the last Neural Service response, I return that answer to the user.
 3) If there's no ChatGPT-generated answer in the last Neural Service response, I use ChatGPT to formulate a new question and repeat the process described in Case 1.
 
+In my cfg.py file I build the patterns to chatgpt request and I replace the dynamic placements depends on the require.
 About the handling request, I'm sure there are many use cases to handle them, I handling just in the case the Neural service doesnt have answer.
 I used in strategy design patterns to init and use in the Chatgpt API and the Neural API.
 
