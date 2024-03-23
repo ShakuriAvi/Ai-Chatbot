@@ -44,7 +44,7 @@ I handling In Two cases:
 3) If there's no ChatGPT-generated answer in the last Neural Service response, I use ChatGPT to formulate a new question and repeat the process described in Case 1.
 
 About the handling request, I'm sure there are many use cases to handle them, I handling just in the case the Neural service doesnt have answer.
-I used in strategy design patterns to init the Chatgpt API and the Neural API.
+I used in strategy design patterns to init and use in the Chatgpt API and the Neural API.
 
 If you have any question please let me know.
 
