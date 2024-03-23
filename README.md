@@ -14,7 +14,7 @@
 * Manually create a new MongoDB database named "AIChatBot" and a schema named "users_conversations". (It's my first time with mongo).
 
 5) Configure AIChatBot:
-* Append the content of the config.py file you received via email to the AIChatBot project. This file likely contains configurations necessary for the * correct operation of the service.
+* Append the API-KEY to the config.py file. This file contains configurations necessary for the service.
 
 6) Run the AIChatBot Service:
 * Finally, launch service.py to activate the AIChatBot service, which will be accessible through port 8080.
