@@ -18,7 +18,6 @@ def chatgpt_manager(**kwargs) -> str:
     chatgpt_strategy: ChatGPT = ChatGPT()
     chatgpt_context = ProviderContext(chatgpt_strategy)
     res = chatgpt_context.execute_query(**kwargs)
-    print(res)
     return res
 
 
